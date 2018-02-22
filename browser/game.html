@@ -1,0 +1,29 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <input type="text" id="chat-input"/>
+    <pre id="state"><pre>
+    <script type="text/javascript">
+      var socket = new WebSocket('ws://localhost:8080')
+
+      socket.addEventListener('message', function (message) {
+        document.getElementById('state').innerHTML = message.data
+        })
+
+      document.getElementById('chat-input').addEventListener('keydown',function (event){
+          if (event.keyCode == 13){
+            var command = document.getElementById('chat-input').value
+            socket.send(command)
+          }
+
+      document.getElementById('state').focus();//doesnt seem to work?
+
+      })
+
+
+
+
+    </script>
+  </body>
+</html>

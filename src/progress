@@ -1,0 +1,9 @@
+just completed
+- flop, turn and river cards
+
+
+next up
+- setting players turns (use an index, set player position and move dealer chip)
+- small/big blind
+- player actions: check, bet/call, fold
+- leave game
