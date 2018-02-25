@@ -3,15 +3,6 @@ var cards = require('cards');
 var deck = new cards.PokerDeck();
 deck.shuffleAll();
 
-// function newDeck(){
-//   var deck = new cards.PokerDeck();
-//   return deck;
-//   deck.shuffleAll();
-// }
-//
-// newDeck();
-
-
 var game = { //this starts a game with objects called players. the [] means its an undefined list of players, as we will define them with user inputs and the addPlayer function.
   players: [],
   board: {
@@ -40,7 +31,6 @@ function handleStateChange() { //what is the purpose of this function?
 function addPlayer(name){ //addPlayer takes name and chips as starting arguments
   var newPlayer = {
     name: name,
-    dealer: null,
     chips: 100,
     hand: [],
     bet: 0,
@@ -62,7 +52,7 @@ function handleCommand(command){
     addChips(name,100)
     }
   else if (command === 'deal'){
-    dealCards()
+    dealHoleCards()
     }
   else if (command === 'flop'){
     dealFlop()
@@ -77,15 +67,15 @@ function handleCommand(command){
     var wager = command.substring(4)
     placeBet(wager)
       }
-  else if (command === 'dealer') {
-    setDealer()
-    }
   // else if (command === 'call'){
   //   placeBet('max bet - current bet')//how do i look at the list of players and find the max value in the bet field? do i make an array of all the bet values, then extract the max?
   //     for (var i = 0; i < game.players.length; i++){
   //     ??
   //   }
   //     }
+    else if (command == dealer){
+      setDealer()
+    }
   }
 
   // function call(){
@@ -100,26 +90,19 @@ function handleCommand(command){
 //     handleStateChange()
 //   }
 
-//deals one card to each play to set dealer
 function setDealer(){
-  for (var i = 0; i < game.players.length; i++){
+  deal()
+
+}
+
+function dealCard(numCards){
+  for (var i = 0; i < numCards; i++){
     var card = deck.draw();
     var hand = {
     "value": card.value,
     "suit": card.suit,
     }
   game.players[i].hand.push(hand);
-  }
-  handleStateChange();
-  setTimeout(clearHand,5000);
-}
-
-//used to clear hole cards after dealer is set
-function clearHand(){
-  for (var i = 0; i < game.players.length; i++){
-  game.players[i].hand = [];
-  handleStateChange();
-  // newDeck();//how do i reset the deck?
   }
 }
 
@@ -171,16 +154,9 @@ function dealFlop(){
   handleStateChange()
 }
 
-function dealCards(){
+function dealHoleCards(){
   while(game.players[0].hand.length <= 1){
-    for (var i = 0; i < game.players.length; i++){
-      var card = deck.draw();
-      var hand = {
-      "value": card.value,
-      "suit": card.suit,
-      }
-    game.players[i].hand.push(hand);
-    }
+    function dealCards(game.players.length)
   }
   handleStateChange()
 }
