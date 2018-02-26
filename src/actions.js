@@ -1,5 +1,6 @@
 //this file contains all actions needed for taking in any input from the user and acting on it
 var cards = require('cards');
+var Hand = require('pokersolver').Hand;
 var deck = new cards.PokerDeck();
 deck.shuffleAll();
 
@@ -40,7 +41,7 @@ function handleStateChange() { //what is the purpose of this function?
 function addPlayer(name){ //addPlayer takes name and chips as starting arguments
   var newPlayer = {
     name: name,
-    dealer: null,
+    dealer: false,
     chips: 100,
     hand: [],
     bet: 0,
@@ -100,35 +101,46 @@ function handleCommand(command){
 //     handleStateChange()
 //   }
 
-//deals one card to each play to set dealer
-function setDealer(){
-  for (var i = 0; i < game.players.length; i++){
-    var card = deck.draw();
-    var value = card.value
-    var suit = card.suit
-    var hand = {
-      c: value.concat(suit.charAt(0))
-    // var card = deck.draw();
-    // var hand = {
-    // "value": card.value,
-    // "suit": card.suit,
-    }
-  game.players[i].hand.push(hand);
-  }
-  // var dealer = Math.max(...game.players.hand(value));
-  // console.log(dealer);
-  handleStateChange();
-  setTimeout(clearHand,5000);
-}
+//picks a random number to be dealer
+// function setDealer(){
+//   var dealerIndex = Math.floor((Math.random() * game.players.length) + 1);
+//   game.players[dealerIndex].dealer.push(true);
+// }
 
-//used to clear hole cards after dealer is set
-function clearHand(){
-  for (var i = 0; i < game.players.length; i++){
-  game.players[i].hand = [];
-  handleStateChange();
-  // newDeck();//how do i reset the deck?
-  }
-}
+//deals one card to each play to set dealer
+// function setDealer(){
+//   var dealerCards = []
+//   for (var i = 0; i < game.players.length; i++){
+//     var card = deck.draw();
+//     var value = card.value
+//     var suit = card.suit
+//     var hand = {
+//       c: value.concat(suit.charAt(0))
+//     // var card = deck.draw();
+//     // var hand = {
+//     // "value": card.value,
+//     // "suit": card.suit,
+//     }
+//   dealerCards.push(value);
+//   game.players[i].hand.push(hand);
+//   }
+//   // var dealer = Hand.winners(dealerCards);
+//   console.log(dealerCards);
+//   // console.log(dealer);
+//   // var dealer = Math.max(...game.players.hand(value));
+//   // console.log(dealer);
+//   handleStateChange();
+//   setTimeout(clearHand,5000);
+// }
+//
+// //used to clear hole cards after dealer is set
+// function clearHand(){
+//   for (var i = 0; i < game.players.length; i++){
+//   game.players[i].hand = [];
+//   handleStateChange();
+//   // newDeck();//how do i reset the deck?
+//   }
+// }
 
 //trying to centralize this function
 function deal(){

@@ -3,7 +3,11 @@ just completed
 
 
 next up
-- setting players turns (use an index, set player position and move dealer chip)
+- set dealer (deal one card to each player, highest card dealt first wins, then clear cards from holeCards)
+-- not sure how to evaluate the highest hand.
+-- trying a random number generator and setting the player at the index to the dealer
+- determine who won -> poker evaluator
+- setting players turns (create a variable for player turn that sets the index)
 - small/big blind
 - player actions: check, bet/call, fold
 - leave game
