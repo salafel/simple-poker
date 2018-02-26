@@ -110,6 +110,8 @@ function setDealer(){
     }
   game.players[i].hand.push(hand);
   }
+  // var dealer = Math.max(...game.players.hand(value));
+  // console.log(dealer);
   handleStateChange();
   setTimeout(clearHand,5000);
 }
@@ -123,15 +125,32 @@ function clearHand(){
   }
 }
 
+//trying to centralize this function
+function deal(){
+  var card = deck.draw();
+  var value = card.value
+  var suit = card.suit
+  var hand = {
+    c: value.concat(suit.charAt(0))
+  }
+  return hand//how do i meake the next function able to use this?
+}
+
+
 function dealRiver(){
   if(game.board.flop.length == 3){
     if(game.board.turn.length == 1){
       while(game.board.river.length < 1){
         for (var i = 0; i < 1; i++){
           var card = deck.draw();
+          var value = card.value
+          var suit = card.suit
           var dealCards = {
-          "value": card.value,
-          "suit": card.suit,
+            c: value.concat(suit.charAt(0))
+          //   var card = deck.draw();
+          // var dealCards = {
+          // "value": card.value,
+          // "suit": card.suit,
           }
         game.board.river.push(dealCards);
         }
@@ -146,9 +165,14 @@ function dealTurn(){
     while(game.board.turn.length < 1){
       for (var i = 0; i < 1; i++){
         var card = deck.draw();
+        var value = card.value
+        var suit = card.suit
         var dealCards = {
-        "value": card.value,
-        "suit": card.suit,
+          c: value.concat(suit.charAt(0))
+        // var card = deck.draw();
+        // var dealCards = {
+        // "value": card.value,
+        // "suit": card.suit,
         }
       game.board.turn.push(dealCards);
       }
@@ -161,9 +185,14 @@ function dealFlop(){
   while(game.board.flop.length <= 2){
     for (var i = 0; i < 3; i++){
       var card = deck.draw();
+      var value = card.value
+      var suit = card.suit
       var dealCards = {
-      "value": card.value,
-      "suit": card.suit,
+        c: value.concat(suit.charAt(0))
+      // var card = deck.draw();
+      // var dealCards = {
+      // "value": card.value,
+      // "suit": card.suit,
       }
     game.board.flop.push(dealCards);
     }
@@ -174,10 +203,14 @@ function dealFlop(){
 function dealCards(){
   while(game.players[0].hand.length <= 1){
     for (var i = 0; i < game.players.length; i++){
+      // deal()
       var card = deck.draw();
+      var value = card.value
+      var suit = card.suit
       var hand = {
-      "value": card.value,
-      "suit": card.suit,
+        c: value.concat(suit.charAt(0))
+    //   // "value": card.value,
+    //   // "suit": card.suit,
       }
     game.players[i].hand.push(hand);
     }
