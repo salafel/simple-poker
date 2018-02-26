@@ -104,9 +104,14 @@ function handleCommand(command){
 function setDealer(){
   for (var i = 0; i < game.players.length; i++){
     var card = deck.draw();
+    var value = card.value
+    var suit = card.suit
     var hand = {
-    "value": card.value,
-    "suit": card.suit,
+      c: value.concat(suit.charAt(0))
+    // var card = deck.draw();
+    // var hand = {
+    // "value": card.value,
+    // "suit": card.suit,
     }
   game.players[i].hand.push(hand);
   }
