@@ -12,18 +12,35 @@ deck.shuffleAll();
 //
 // newDeck();
 
+///////////////////////////////////////
 
-var game = { //this starts a game with objects called players. the [] means its an undefined list of players, as we will define them with user inputs and the addPlayer function.
-  players: [],
-  board: {
+var game = {};
+//need to add a reset function bc test file will be simulating game play and need a way to erase/rest that
+function reset() {
+
+  // iterate through the item keys in game
+  for (var itemKey in game) {
+    // itemKey, e.g., is "players" or "board"
+    delete game[itemKey];
+  }
+
+  //this starts a game with objects called players. the [] means its an undefined list of players, as we will define them with user inputs and the addPlayer function.
+  game.players = [];
+  game.board = {
     flop: [],
     turn: [],
     river: [],
-  },
+  };
+  // TODO shuffle deck
 }
+
+reset()
+
+///////////////////////////////////////
 
 var stateSubscribers = [] //why do we need this?
 
+var hand = {}
 var dealer = 0 //index of player who is dealer
 var lastBet = 0 //keeps track of most recent bet amount
 var playerTurn = 0 //index of current player's turn
@@ -46,7 +63,7 @@ function addPlayer(name){ //addPlayer takes name and chips as starting arguments
     hand: [],
     bet: 0,
     lastAction: "",
-    status: 0, //running count of all player moves assigned to a player upon making a move
+    status: "",
     inPot: 0,
   }
   game.players.push(newPlayer) //this is how we add a new player to the list of players of the game
@@ -94,12 +111,25 @@ function handleCommand(command){
   // }
 
 // function placeBet(wager){
-//   //var x = game.players.index of the player with the highest status value
-//       game.players[x].chips += chips
-//       }
-//     }
+//       game.players[playerTurn].chips -= wager,
+//       // playerTurn += 1,
+//       nextPlayer(),
 //     handleStateChange()
 //   }
+//
+// function nextPlayer(){
+//   if (game.players[playerTurn] < game.players.length){
+//     if(game.players[playerTurn++].status != "fold"){
+//       if(game.players[playerTurn++].status != "allin"){
+//           playerTurn += 1
+//         }
+//         else()
+//     }
+//   }
+// }
+//
+//make fold, check, call function
+
 
 //picks a random number to be dealer
 // function setDealer(){
@@ -147,10 +177,10 @@ function deal(){
   var card = deck.draw();
   var value = card.value
   var suit = card.suit
-  var hand = {
+  hand = {
     c: value.concat(suit.charAt(0))
   }
-  return hand//how do i meake the next function able to use this?
+  // return hand//how do i meake the next function able to use this?
 }
 
 
@@ -244,9 +274,9 @@ function addChips(name,chips){
     handleStateChange()
   }
 
-
 module.exports = { //this tells other files that require actions.js what part is exported. we still have to require it elsewhere.
   handleCommand: handleCommand,
   game: game, //we have to export game in order to show the game state on the web server
   subscribeToStateChanges: subscribeToStateChanges,
+  reset: reset,//need to export so test file can use it
 }
